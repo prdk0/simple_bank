@@ -1,21 +1,18 @@
 package db
+
 import (
+	"context"
+	"simple_bank/util"
+	"testing"
+	"time"
 
-"context"
-"simple_bank/util"
-"testing"
-"time"
-
-
-"github.com/stretchr/testify/require"
-
-
+	"github.com/stretchr/testify/require"
 )
 
 func createRandomEntry(t *testing.T, account Account) Entry {
 	arg := CreateEntryParams{
 		AccountID: account.ID,
-		Amount: util.RandomMoney(),
+		Amount:    util.RandomMoney(),
 	}
 	entry, err := testQueries.CreateEntry(context.Background(), arg)
 	require.NoError(t, err)
@@ -46,13 +43,13 @@ func TestCreateEntry(t *testing.T) {
 func TestListEntries(t *testing.T) {
 	account := createRandomAccount(t)
 	for i := 0; i < 10; i++ {
-	 	createRandomEntry(t, account)
+		createRandomEntry(t, account)
 	}
 
 	arg := ListEntriesParams{
 		AccountID: account.ID,
-		Limit: 5,
-		Offset: 5,
+		Limit:     5,
+		Offset:    5,
 	}
 
 	entries, err := testQueries.ListEntries(context.Background(), arg)

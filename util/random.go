@@ -1,14 +1,14 @@
 package util
-import (
 
-"math/rand/v2"
-"strings"
+import (
+	"math/rand/v2"
+	"strings"
 )
 
 const alphabet = "abcdefghijklmnopqrstuvwxyz"
 
 func RandomInt(min, max int64) int64 {
-	return min+rand.Int64N(max-min+1)
+	return min + rand.Int64N(max-min+1)
 }
 
 func RandomString(n int) string {

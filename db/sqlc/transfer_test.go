@@ -1,22 +1,19 @@
 package db
+
 import (
+	"context"
+	"simple_bank/util"
+	"testing"
+	"time"
 
-"context"
-"simple_bank/util"
-"testing"
-"time"
-
-
-"github.com/stretchr/testify/require"
-
-
+	"github.com/stretchr/testify/require"
 )
 
 func createRandomTransfer(t *testing.T, account1, account2 Account) Transfer {
 	args := CreateTransferParams{
 		FromAccountID: account1.ID,
-		ToAccountID: account2.ID,
-		Amount: util.RandomMoney(),
+		ToAccountID:   account2.ID,
+		Amount:        util.RandomMoney(),
 	}
 	transfer, err := testQueries.CreateTransfer(context.Background(), args)
 	require.NoError(t, err)
@@ -39,7 +36,6 @@ func TestCreateTransfer(t *testing.T) {
 	account2 := createRandomAccount(t)
 	createRandomTransfer(t, account1, account2)
 }
-
 
 func TestGetTransfer(t *testing.T) {
 	account1 := createRandomAccount(t)
