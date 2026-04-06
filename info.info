@@ -1,0 +1,18 @@
+In Docker, it is not possible to modify the port mapping of a container once it has been created and is already running. To "map" a port to an existing PostgreSQL container, you must replace it or manually edit internal configuration files.
+
+The Recommended Way (Stop, Remove, and Re-run)
+-----------------------------------------------
+The standard practice is to stop the current container and start a new one with the desired port mapping. Since PostgreSQL data is typically stored in a Docker volume, your data will remain safe if you use the same volume name.
+
+1. Stop and remove the existing container:
+docker stop <container_name>
+docker rm <container_name>
+
+2. Start a new container with the port mapping:
+
+docker run --name sb1 -p 5432:5432 -v ad61a263571ac43c78fa2f9f06c9a9d732d097e61e23e4eec94873b0b6077965:/var/lib/postgresql/data -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -d postgres:18.1-alpine3.23
+
+ - -v (existing volume of a container)
+ To find the existing volume a container
+ --------------------------------------------
+    docker inspect --format='{{json .Mounts}}' <container_id_or_name> | jq
